@@ -107,7 +107,7 @@ export const AdminDashboardPage: React.FC = () => {
       const dateStr = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(
         now.getDate()
       ).padStart(2, '0')}`;
-      a.download = `applications-${dateStr}.xlsx`;
+      a.download = `HoSoUngTuyen-${dateStr}.xlsx`;
       document.body.appendChild(a);
       a.click();
       a.remove();

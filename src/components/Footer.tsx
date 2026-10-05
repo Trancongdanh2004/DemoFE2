@@ -9,7 +9,7 @@ export const Footer: React.FC = () => {
           <ShieldAlert className="w-4 h-4 text-emerald-600" />
           <span>Thông tin hồ sơ cá nhân được mã hóa và bảo mật theo quy định bảo vệ dữ liệu.</span>
         </div>
-        <p>© {new Date().getFullYear()} Recruitment System. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} Hệ thống Tiếp nhận Hồ sơ Tuyển dụng. Đã đăng ký bản quyền.</p>
       </div>
     </footer>
   );

@@ -16,7 +16,7 @@ export const Navbar: React.FC = () => {
           </div>
           <div>
             <span className="font-bold text-lg text-slate-900 tracking-tight block">
-              RECRUITMENT PORTAL
+              CỔNG TUYỂN DỤNG
             </span>
             <span className="text-xs text-slate-500 font-medium hidden sm:block">
               Hệ thống Tiếp nhận Hồ sơ Ứng tuyển
