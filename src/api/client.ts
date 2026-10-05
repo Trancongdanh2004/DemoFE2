@@ -10,10 +10,10 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api'
 
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 60000, // 60s for Cloudinary uploads
+  timeout: 60000, // 60 giây để xử lý tải lên Cloudinary
 });
 
-// Request interceptor to attach JWT token
+// Bộ đón chặn yêu cầu (request interceptor) để đính kèm JWT token
 apiClient.interceptors.request.use((config) => {
   const token = localStorage.getItem('admin_token');
   if (token) {
@@ -22,12 +22,12 @@ apiClient.interceptors.request.use((config) => {
   return config;
 });
 
-// Response interceptor to handle 401s
+// Bộ đón chặn phản hồi (response interceptor) để xử lý mã lỗi 401
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // If unauthorized on admin page, remove token
+      // Nếu không có quyền khi truy cập trang quản trị, xóa token và chuyển về trang đăng nhập
       if (window.location.pathname.startsWith('/admin') && window.location.pathname !== '/admin/login') {
         localStorage.removeItem('admin_token');
         localStorage.removeItem('admin_user');
@@ -38,7 +38,7 @@ apiClient.interceptors.response.use(
   }
 );
 
-// Public API
+// Các hàm gọi API công khai
 export const submitApplicationApi = async (formData: FormData): Promise<SubmitApplicationResponse> => {
   const res = await apiClient.post<SubmitApplicationResponse>('/applications', formData, {
     headers: {
@@ -48,7 +48,7 @@ export const submitApplicationApi = async (formData: FormData): Promise<SubmitAp
   return res.data;
 };
 
-// Admin API
+// Các hàm gọi API dành cho quản trị viên (Admin)
 export const adminLoginApi = async (credentials: { username: string; password: string }): Promise<LoginResponse> => {
   const res = await apiClient.post<LoginResponse>('/admin/login', credentials);
   return res.data;

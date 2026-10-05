@@ -31,7 +31,7 @@ import { Application } from '../types';
 export const AdminDashboardPage: React.FC = () => {
   const navigate = useNavigate();
 
-  // State
+  // Khởi tạo các trạng thái (State)
   const [applications, setApplications] = useState<Application[]>([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -42,12 +42,12 @@ export const AdminDashboardPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
 
-  // Modals state
+  // Trạng thái hiển thị các cửa sổ Modal
   const [selectedApp, setSelectedApp] = useState<Application | null>(null);
   const [deleteTargetApp, setDeleteTargetApp] = useState<Application | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // Authentication check
+  // Kiểm tra quyền xác thực quản trị viên
   useEffect(() => {
     const token = localStorage.getItem('admin_token');
     if (!token) {
@@ -55,17 +55,17 @@ export const AdminDashboardPage: React.FC = () => {
     }
   }, [navigate]);
 
-  // Debounce search
+  // Trì hoãn tìm kiếm (debounce) để tối ưu hiệu năng
   useEffect(() => {
     const timer = setTimeout(() => {
       setSearchQuery(searchInput);
-      setPage(1); // Reset to first page on search
+      setPage(1); // Đặt lại về trang đầu tiên khi tìm kiếm
     }, 400);
 
     return () => clearTimeout(timer);
   }, [searchInput]);
 
-  // Fetch applications
+  // Lấy danh sách hồ sơ ứng tuyển
   const fetchApplications = async () => {
     setIsLoading(true);
     try {
@@ -169,7 +169,7 @@ export const AdminDashboardPage: React.FC = () => {
 
   return (
     <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Top Header */}
+      {/* Tiêu đề đầu trang */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between pb-6 border-b border-slate-200/80 gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-3">
@@ -216,9 +216,9 @@ export const AdminDashboardPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Filter and Control Bar */}
+      {/* Thanh công cụ tìm kiếm và lọc */}
       <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-        {/* Search */}
+        {/* Ô tìm kiếm */}
         <div className="relative w-full sm:max-w-md">
           <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
             <Search className="w-4 h-4" />
@@ -240,7 +240,7 @@ export const AdminDashboardPage: React.FC = () => {
           )}
         </div>
 
-        {/* Page Size Selector */}
+        {/* Bộ chọn số lượng hiển thị trên trang */}
         <div className="flex items-center space-x-2 text-sm text-slate-600 self-end sm:self-auto">
           <span>Hiển thị:</span>
           <select
@@ -258,7 +258,7 @@ export const AdminDashboardPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Table Card */}
+      {/* Thẻ bảng hiển thị dữ liệu chính */}
       <div className="mt-6 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm text-slate-600 border-collapse">
@@ -286,7 +286,7 @@ export const AdminDashboardPage: React.FC = () => {
             </thead>
             <tbody className="divide-y divide-slate-100">
               {isLoading ? (
-                // Loading skeletons
+                // Khung xương giao diện khi đang tải (Skeleton loading)
                 Array.from({ length: 5 }).map((_, idx) => (
                   <tr key={idx} className="animate-pulse">
                     <td className="py-4 px-4 text-center">
@@ -451,7 +451,7 @@ export const AdminDashboardPage: React.FC = () => {
           </table>
         </div>
 
-        {/* Server Pagination */}
+        {/* Phân trang dữ liệu từ máy chủ */}
         <div className="px-6 py-4 bg-slate-50/60 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-xs text-slate-500">
             Hiển thị từ <span className="font-semibold text-slate-700">{(page - 1) * pageSize + 1}</span> đến{' '}
@@ -485,7 +485,7 @@ export const AdminDashboardPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Detail Modal Dialog */}
+      {/* Hộp thoại chi tiết hồ sơ */}
       {selectedApp && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
           <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-2xl w-full p-6 sm:p-8 max-h-[90vh] overflow-y-auto relative">
@@ -507,13 +507,13 @@ export const AdminDashboardPage: React.FC = () => {
             </div>
 
             <div className="space-y-6 text-sm">
-              {/* Personal Info with Avatar */}
+              {/* Thông tin cá nhân kèm ảnh chân dung */}
               <div className="bg-slate-50 rounded-xl p-4 border border-slate-200/80">
                 <h4 className="font-bold text-slate-800 text-xs uppercase tracking-wider mb-3 text-blue-700">
                   1. Thông tin cá nhân
                 </h4>
                 <div className="flex flex-col sm:flex-row gap-5 items-start">
-                  {/* Photo */}
+                  {/* Khung ảnh chân dung */}
                   <div className="flex-shrink-0">
                     {selectedApp.avatarUrl ? (
                       <a
@@ -560,7 +560,7 @@ export const AdminDashboardPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Bachelor */}
+              {/* Thông tin bằng đại học */}
               <div className="bg-slate-50 rounded-xl p-4 border border-slate-200/80">
                 <h4 className="font-bold text-slate-800 text-xs uppercase tracking-wider mb-3 text-indigo-700">
                   2. Bằng tốt nghiệp đại học
@@ -592,7 +592,7 @@ export const AdminDashboardPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Master */}
+              {/* Thông tin bằng thạc sĩ */}
               <div className="bg-slate-50 rounded-xl p-4 border border-slate-200/80">
                 <h4 className="font-bold text-slate-800 text-xs uppercase tracking-wider mb-3 text-amber-700">
                   3. Bằng tốt nghiệp thạc sĩ
@@ -624,7 +624,7 @@ export const AdminDashboardPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Summary PDF */}
+              {/* Tệp PDF tổng hợp */}
               <div className="pt-2 text-center">
                 <a
                   href={selectedApp.summaryPdfUrl}
@@ -641,7 +641,7 @@ export const AdminDashboardPage: React.FC = () => {
         </div>
       )}
 
-      {/* Delete Confirmation Dialog */}
+      {/* Hộp thoại xác nhận xóa */}
       {deleteTargetApp && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
           <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-md w-full p-6 text-center">

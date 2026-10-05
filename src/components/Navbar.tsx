@@ -9,7 +9,7 @@ export const Navbar: React.FC = () => {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        {/* Brand */}
+        {/* Thương hiệu / Logo */}
         <Link to="/" className="flex items-center space-x-3 group">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-700 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform duration-200">
             <FileText className="w-5 h-5" />
@@ -24,7 +24,7 @@ export const Navbar: React.FC = () => {
           </div>
         </Link>
 
-        {/* Navigation links */}
+        {/* Các liên kết điều hướng */}
         <nav className="flex items-center space-x-2 sm:space-x-3">
           <Link
             to="/"

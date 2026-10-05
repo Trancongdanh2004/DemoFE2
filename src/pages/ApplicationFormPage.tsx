@@ -25,7 +25,7 @@ import { submitApplicationApi } from '../api/client';
 
 const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
 
-// Form validation schema
+// Schema xác thực dữ liệu biểu mẫu (Form validation)
 const formSchema = z
   .object({
     fullName: z
@@ -101,18 +101,18 @@ const formSchema = z
 type FormValues = z.infer<typeof formSchema>;
 
 export const ApplicationFormPage: React.FC = () => {
-  // Avatar state
+  // Trạng thái ảnh chân dung
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const [avatarError, setAvatarError] = useState<string | null>(null);
   const avatarInputRef = useRef<HTMLInputElement>(null);
 
-  // Bachelor file state
+  // Trạng thái tệp bằng đại học
   const [bachelorFile, setBachelorFile] = useState<File | null>(null);
   const [bachelorFileError, setBachelorFileError] = useState<string | null>(null);
   const bachelorFileInputRef = useRef<HTMLInputElement>(null);
 
-  // Master file state
+  // Trạng thái tệp bằng thạc sĩ
   const [masterFile, setMasterFile] = useState<File | null>(null);
   const [masterFileError, setMasterFileError] = useState<string | null>(null);
   const masterFileInputRef = useRef<HTMLInputElement>(null);
@@ -214,7 +214,7 @@ export const ApplicationFormPage: React.FC = () => {
   };
 
   const onSubmit = async (data: FormValues) => {
-    // Validate files manually
+    // Kiểm tra tính hợp lệ của các tệp đính kèm thủ công
     let hasFileError = false;
     if (!bachelorFile) {
       setBachelorFileError('Vui lòng tải lên tệp PDF bằng đại học.');
@@ -343,7 +343,7 @@ export const ApplicationFormPage: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 sm:py-12">
-      {/* Title Header */}
+      {/* Tiêu đề đầu trang */}
       <div className="text-center mb-10">
         <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold uppercase tracking-wider mb-4">
           <GraduationCap className="w-4 h-4" />
@@ -357,7 +357,7 @@ export const ApplicationFormPage: React.FC = () => {
         </p>
       </div>
 
-      {/* Main Form Card */}
+      {/* Khung biểu mẫu chính */}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         {/* Section 1: Thông tin cá nhân */}
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 sm:p-8 transition-shadow hover:shadow-md">
@@ -371,7 +371,7 @@ export const ApplicationFormPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Avatar Upload Box */}
+          {/* Khung tải lên ảnh chân dung */}
           <div className="mb-6 p-4 bg-slate-50/80 border border-slate-200/70 rounded-2xl flex flex-col sm:flex-row items-center gap-5">
             <div className="relative group">
               <div className="w-24 h-32 rounded-xl border-2 border-dashed border-slate-300 bg-white overflow-hidden flex items-center justify-center shadow-inner">
@@ -444,7 +444,7 @@ export const ApplicationFormPage: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Full Name */}
+            {/* Họ và tên */}
             <div className="md:col-span-2">
               <label className="block text-sm font-semibold text-slate-700 mb-1.5">
                 Họ và tên <span className="text-rose-500">*</span>
@@ -469,7 +469,7 @@ export const ApplicationFormPage: React.FC = () => {
               )}
             </div>
 
-            {/* CCCD */}
+            {/* Số CCCD */}
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-1.5">
                 Số CCCD (12 chữ số) <span className="text-rose-500">*</span>
@@ -498,7 +498,7 @@ export const ApplicationFormPage: React.FC = () => {
               )}
             </div>
 
-            {/* CCCD Issue Date */}
+            {/* Ngày cấp CCCD */}
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-1.5">
                 Ngày cấp CCCD <span className="text-rose-500">*</span>
@@ -541,7 +541,7 @@ export const ApplicationFormPage: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Major */}
+            {/* Chuyên ngành */}
             <div className="md:col-span-2">
               <label className="block text-sm font-semibold text-slate-700 mb-1.5">
                 Chuyên ngành đào tạo <span className="text-rose-500">*</span>
@@ -564,7 +564,7 @@ export const ApplicationFormPage: React.FC = () => {
               )}
             </div>
 
-            {/* Bachelor Issue Date */}
+            {/* Ngày cấp bằng đại học */}
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-1.5">
                 Ngày cấp bằng ĐH <span className="text-rose-500">*</span>
@@ -592,7 +592,7 @@ export const ApplicationFormPage: React.FC = () => {
               )}
             </div>
 
-            {/* Bachelor Serial Number */}
+            {/* Số hiệu văn bằng đại học */}
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-1.5">
                 Số hiệu bằng tốt nghiệp ĐH <span className="text-rose-500">*</span>
@@ -620,7 +620,7 @@ export const ApplicationFormPage: React.FC = () => {
               )}
             </div>
 
-            {/* Bachelor File Upload */}
+            {/* Tải lên tệp bằng đại học */}
             <div className="md:col-span-2">
               <label className="block text-sm font-semibold text-slate-700 mb-1.5">
                 Tệp đính kèm bằng tốt nghiệp ĐH (PDF, ≤ 5MB) <span className="text-rose-500">*</span>
@@ -696,7 +696,7 @@ export const ApplicationFormPage: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Master Major */}
+            {/* Chuyên ngành thạc sĩ */}
             <div className="md:col-span-2">
               <label className="block text-sm font-semibold text-slate-700 mb-1.5">
                 Chuyên ngành đào tạo <span className="text-rose-500">*</span>
@@ -719,7 +719,7 @@ export const ApplicationFormPage: React.FC = () => {
               )}
             </div>
 
-            {/* Master Issue Date */}
+            {/* Ngày cấp bằng thạc sĩ */}
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-1.5">
                 Ngày cấp bằng ThS <span className="text-rose-500">*</span>
@@ -747,7 +747,7 @@ export const ApplicationFormPage: React.FC = () => {
               )}
             </div>
 
-            {/* Master Serial Number */}
+            {/* Số hiệu văn bằng thạc sĩ */}
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-1.5">
                 Số hiệu bằng tốt nghiệp ThS <span className="text-rose-500">*</span>
@@ -775,7 +775,7 @@ export const ApplicationFormPage: React.FC = () => {
               )}
             </div>
 
-            {/* Master File Upload */}
+            {/* Tải lên tệp bằng thạc sĩ */}
             <div className="md:col-span-2">
               <label className="block text-sm font-semibold text-slate-700 mb-1.5">
                 Tệp đính kèm bằng tốt nghiệp ThS (PDF, ≤ 5MB) <span className="text-rose-500">*</span>
@@ -838,7 +838,7 @@ export const ApplicationFormPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Consent Checkbox */}
+        {/* Hộp kiểm cam kết / đồng ý điều khoản */}
         <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 flex items-start space-x-3">
           <input
             id="consent"
@@ -859,7 +859,7 @@ export const ApplicationFormPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Submit Button */}
+        {/* Nút nộp hồ sơ */}
         <div className="pt-2 text-center">
           <button
             type="submit"
